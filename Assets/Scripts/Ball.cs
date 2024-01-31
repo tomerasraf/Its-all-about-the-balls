@@ -21,4 +21,9 @@ public class Ball : MonoBehaviour
     {
       ballRb.useGravity = true;
     }
+
+    public void shotBall(Vector3 shotDiraction)
+    {
+        ballRb.AddForce(shotDiraction * ballFource);
+    }
 }

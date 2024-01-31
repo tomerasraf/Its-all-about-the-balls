@@ -147,4 +147,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballRb: {fileID: 6781450706842165129}
-  ballFource: 5
+  ballFource: 100
