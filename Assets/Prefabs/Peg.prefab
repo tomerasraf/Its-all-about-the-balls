@@ -120,9 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0b4bac9912c8c40b16ac3e8d618dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderer: {fileID: 2689322503932507430}
   hitColor:
   - {r: 1, g: 1, b: 1, a: 0.00000021161536}
   - {r: 1, g: 0.23077008, b: 0, a: 0.000000013235926}
   - {r: 0.2396226, g: 1, b: 0.3234872, a: 9.25476e-40}
   - {r: 1, g: 0.9929782, b: 0, a: 9.29439e-40}
-  - {r: 1, g: 0.9929782, b: 0, a: 9.29439e-40}
+  - {r: 0, g: 0.9586017, b: 1, a: 9.29439e-40}
+  colorTimer: 1.5

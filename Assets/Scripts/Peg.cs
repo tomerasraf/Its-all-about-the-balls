@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Peg : MonoBehaviour
 {
+    [SerializeField] Color defaultColor;
     [SerializeField] Color[] hitColor;
-    int i = 0;
+    [SerializeField] float colorTimer;
+
+    int colorNumber = 0;
+    float timer = 0;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -13,13 +17,31 @@ public class Peg : MonoBehaviour
 
         if(collision.gameObject.layer == ballLayer)
         {
-            i++;
-            if(i > hitColor.Length - 1)
-            {
-                i = 0;
-            }
-                GetComponent<Renderer>().material.color = hitColor[i];
-            
+            ChangeColor();
         }
+    }
+
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+
+        if(timer < 0)
+        {
+            GetComponent<Renderer>().material.color = defaultColor;
+            timer = colorTimer;
+        }
+      
+    }
+
+    private void ChangeColor()
+    {
+        GetComponent<Renderer>().material.color = hitColor[colorNumber];
+        timer = colorTimer;
+        colorNumber++;
+        if (colorNumber > hitColor.Length - 1)
+        {
+            colorNumber = 0;
+        }
+       
     }
 }
