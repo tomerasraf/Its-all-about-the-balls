@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class TouchManager : MonoBehaviour
 {
-    [SerializeField] GameObject ball;
+    [SerializeField] GameObject ballPrefab;
 
     Vector3 initialTouchPosition;
-    Touch touch;
+
+    GameObject ballObject;
+    Ball ball;
 
     private void Update()
     {
@@ -16,10 +18,21 @@ public class TouchManager : MonoBehaviour
 
             SpawnBallOnTouch();
         }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            Debug.Log("s0");
+            ball.ReleaseBall();
+        }
     }
 
     void SpawnBallOnTouch()
     {
-        Instantiate(ball, initialTouchPosition, Quaternion.identity);
+        if(initialTouchPosition.y > 5.9f)
+        {
+           ballObject = Instantiate(ballPrefab, initialTouchPosition, Quaternion.identity);
+            ball = ballObject?.GetComponent<Ball>();
+            ball.InitBall();
+        }  
     }
 }
