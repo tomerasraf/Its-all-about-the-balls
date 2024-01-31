@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SampleScene tests ezra.unity
+    guid: c70d77ee1016bad4f9f6c9863bc52871
   m_configObjects: {}
