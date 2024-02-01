@@ -9,12 +9,9 @@ public class TouchManager : MonoBehaviour
     [SerializeField]
     [Range(1, 2)] float minRange = 1.2f;
 
-    [SerializeField]
-    [Range(2,4)] float maxRange = 3f;
-
     Vector3 initialTouchPosition;
     Vector3 currentMousePos;
-    Vector3 shotVector;
+    Vector3 distanceDir;
     float distanceFromBall;
 
     GameObject ballObject;
@@ -27,42 +24,50 @@ public class TouchManager : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            ConvertMouseInputFromScreenToWorldView();
-            SpawnBallOnTouch();
-        }
+        MouseButtonIsPressedDown();
+        MouseButtonOnHold();
+        MouseButtonRelese();
+    }
 
+    private void MouseButtonRelese()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            ball?.ReleaseBall();
+
+            if (distanceFromBall > minRange)
+            {
+                ball.shotBall(distanceDir * -1); // Get the opposite Vector;
+            }
+
+        }
+    }
+
+    private void MouseButtonOnHold()
+    {
         if (Input.GetMouseButton(0))
         {
             currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             currentMousePos.z = 0;
 
             distanceFromBall = Vector3.Distance(initialTouchPosition, currentMousePos);
-            shotVector = currentMousePos - initialTouchPosition;
+            distanceDir = currentMousePos - initialTouchPosition;
+            distanceDir.Normalize();
 
-            shotVector.z = 0;
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            ball?.ReleaseBall();
-
-
-            if (distanceFromBall > minRange)
-            {
-                ball.shotBall(shotVector *-1);
-            }
-            
+            distanceDir.z = 0;
         }
     }
 
-    private void OnDrawGizmos()
+    private void MouseButtonIsPressedDown()
     {
-        Gizmos.DrawLine(initialTouchPosition, currentMousePos);
+        if (Input.GetMouseButtonDown(0))
+        {
+            ConvertMouseInputFromScreenToWorldPoint();
+            SpawnBallOnTouch();
+        }
     }
 
-    private void ConvertMouseInputFromScreenToWorldView()
+    private void ConvertMouseInputFromScreenToWorldPoint()
     {
         initialTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         initialTouchPosition.z = -1f;
@@ -76,5 +81,11 @@ public class TouchManager : MonoBehaviour
             ball = ballObject?.GetComponent<Ball>();
             ball.InitBall();
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(initialTouchPosition, currentMousePos);
+        
     }
 }

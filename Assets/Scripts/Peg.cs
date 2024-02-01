@@ -23,14 +23,18 @@ public class Peg : MonoBehaviour
 
     private void Update()
     {
+        ColorResetTimer();
+    }
+
+    private void ColorResetTimer()
+    {
         timer -= Time.deltaTime;
 
-        if(timer < 0)
+        if (timer < 0)
         {
             GetComponent<Renderer>().material.color = defaultColor;
             timer = colorTimer;
         }
-      
     }
 
     private void ChangeColor()

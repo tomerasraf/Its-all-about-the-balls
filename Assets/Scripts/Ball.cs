@@ -9,8 +9,13 @@ public class Ball : MonoBehaviour
     [SerializeField] Rigidbody ballRb;
 
     [Header("Vars")]
-    [SerializeField] float ballFource = 5f;
+    public float ballFource = 5f;
 
+
+    public void InitSimiulationBall(Vector3 velocity)
+    {
+        ballRb.AddForce(velocity, ForceMode.Impulse);
+    }
 
     public void InitBall()
     {
