@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Peg : MonoBehaviour
@@ -7,9 +8,25 @@ public class Peg : MonoBehaviour
     [SerializeField] Color defaultColor;
     [SerializeField] Color[] hitColor;
     [SerializeField] float colorTimer;
+    [SerializeField] TextMeshPro _scorePopupPrefab;
+
+    private static float _scoreScreen = 0;
+
+
+    TextMeshPro popupTextClone;
 
     int colorNumber = 0;
     float timer = 0;
+
+    private void Start()
+    {
+        
+    }
+
+    private void Update()
+    {
+        ColorResetTimer();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -18,12 +35,9 @@ public class Peg : MonoBehaviour
         if(collision.gameObject.layer == ballLayer)
         {
             ChangeColor();
-        }
-    }
 
-    private void Update()
-    {
-        ColorResetTimer();
+            PegHitScore();
+        }
     }
 
     private void ColorResetTimer()
@@ -48,4 +62,13 @@ public class Peg : MonoBehaviour
         }
        
     }
+
+    public void PegHitScore()
+    {
+        _scoreScreen++;
+       popupTextClone = Instantiate(_scorePopupPrefab, transform.position, Quaternion.identity);
+       TextAnimationUtil.Instance.PopUpScore(popupTextClone.transform, _scoreScreen);
+    }
+
+    
 }

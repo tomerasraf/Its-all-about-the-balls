@@ -128,3 +128,4 @@ MonoBehaviour:
   - {r: 1, g: 0.9929782, b: 0, a: 9.29439e-40}
   - {r: 0, g: 0.9586017, b: 1, a: 9.29439e-40}
   colorTimer: 1.5
+  _scorePopupPrefab: {fileID: 1144218596350271225, guid: c4347c85aaa16e347825483124d08454, type: 3}
