@@ -48,6 +48,7 @@ public class Peg : MonoBehaviour
         {
             GetComponent<Renderer>().material.color = defaultColor;
             timer = colorTimer;
+            colorNumber = 0;
         }
     }
 

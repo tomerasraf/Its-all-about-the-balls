@@ -9,6 +9,8 @@ public class TouchManager : MonoBehaviour
     [SerializeField]
     [Range(1, 2)] float minRange = 1.2f;
 
+    [SerializeField] LineRenderer lineRenderer;
+
     Vector3 initialTouchPosition;
     Vector3 currentMousePos;
     Vector3 distanceDir;
@@ -16,7 +18,7 @@ public class TouchManager : MonoBehaviour
 
     GameObject ballObject;
     Ball ball;
-
+   
     private void Update()
     {
         HandleInput();
@@ -35,11 +37,12 @@ public class TouchManager : MonoBehaviour
         {
             ball?.ReleaseBall();
 
+            lineRenderer.positionCount = 0;
+
             if (distanceFromBall > minRange)
             {
                 ball.shotBall(distanceDir * -1); // Get the opposite Vector;
             }
-
         }
     }
 
@@ -55,6 +58,10 @@ public class TouchManager : MonoBehaviour
             distanceDir.Normalize();
 
             distanceDir.z = 0;
+
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPosition(0, ball.transform.position);
+            lineRenderer.SetPosition(1, ball.transform.position + (distanceDir * 2));
         }
     }
 
@@ -81,11 +88,5 @@ public class TouchManager : MonoBehaviour
             ball = ballObject?.GetComponent<Ball>();
             ball.InitBall();
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(initialTouchPosition, currentMousePos);
-        
     }
 }

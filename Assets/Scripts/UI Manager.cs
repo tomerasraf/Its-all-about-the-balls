@@ -12,8 +12,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI _walletText;
     [SerializeField] TextMeshProUGUI _currentScoreScreenText;
 
-
-
     private void Awake()
     {
         Instance = this;
