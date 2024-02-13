@@ -12,16 +12,10 @@ public class Peg : MonoBehaviour
 
     private static float _scoreScreen = 0;
 
-
     TextMeshPro popupTextClone;
 
     int colorNumber = 0;
     float timer = 0;
-
-    private void Start()
-    {
-        
-    }
 
     private void Update()
     {

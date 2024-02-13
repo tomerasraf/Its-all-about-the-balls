@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-
     [Header("Components")]
     [SerializeField] Rigidbody ballRb;
 
     [Header("Vars")]
     public float ballFource = 5f;
 
+    public bool isBallActive = false; 
 
     public void InitSimiulationBall(Vector3 velocity)
     {
@@ -24,7 +24,14 @@ public class Ball : MonoBehaviour
 
     public void ReleaseBall()
     {
-      ballRb.useGravity = true;
+        isBallActive = true;
+        ballRb.useGravity = true;
+    }
+
+    public void BallReachTheEnd()
+    {
+        isBallActive = false;
+        Destroy(gameObject);
     }
 
     public void shotBall(Vector3 shotDiraction)

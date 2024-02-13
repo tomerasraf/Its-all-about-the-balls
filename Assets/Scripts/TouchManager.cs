@@ -18,7 +18,7 @@ public class TouchManager : MonoBehaviour
 
     GameObject ballObject;
     Ball ball;
-   
+
     private void Update()
     {
         HandleInput();
@@ -27,8 +27,16 @@ public class TouchManager : MonoBehaviour
     private void HandleInput()
     {
         MouseButtonIsPressedDown();
-        MouseButtonOnHold();
-        MouseButtonRelese();
+
+
+        if (ball != null)
+        {
+            if (!ball.isBallActive)
+            {
+                MouseButtonOnHold();
+                MouseButtonRelese();
+            } 
+        }   
     }
 
     private void MouseButtonRelese()
@@ -37,6 +45,8 @@ public class TouchManager : MonoBehaviour
         {
             ball?.ReleaseBall();
 
+
+            // Remove line renderer on release;
             lineRenderer.positionCount = 0;
 
             if (distanceFromBall > minRange)
@@ -59,6 +69,7 @@ public class TouchManager : MonoBehaviour
 
             distanceDir.z = 0;
 
+            // Indicating the diraction and power of the shot;
             lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, ball.transform.position);
             lineRenderer.SetPosition(1, ball.transform.position + (distanceDir * 2));
@@ -82,7 +93,7 @@ public class TouchManager : MonoBehaviour
 
     void SpawnBallOnTouch()
     {
-        if (initialTouchPosition.y > touchHightLimit)
+        if (initialTouchPosition.y > touchHightLimit & ball == null)
         {
             ballObject = Instantiate(ballPrefab, initialTouchPosition, Quaternion.identity);
             ball = ballObject?.GetComponent<Ball>();
